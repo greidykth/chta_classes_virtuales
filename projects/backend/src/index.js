@@ -6,7 +6,7 @@ import messagesRoutes from './routes/messages.routes.js';
 import onlineClassesRoutes from './routes/onlineClasses.routes.js';
 import { sequelize } from './database/database.js';
 import cors from 'cors';
-import OnlineClass from './models/OnlineClass.js';
+import {OnlineClass} from './models/index.js';
 
 const app = express();
 const server = http.createServer(app);

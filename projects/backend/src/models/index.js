@@ -1,9 +1,9 @@
 import MessageModel from "./Message.js";
-import OnlineClass from "./OnlineClass.js";
+import OnlineClassModel from "./OnlineClass.js";
 import UserModel from "./User.js";
 
 
-UserModel.belongsTo(OnlineClass, {
+UserModel.belongsTo(OnlineClassModel, {
   onUpdate: 'CASCADE',
   foreignKey: "active_class_id" 
 
@@ -13,7 +13,12 @@ UserModel.hasMany(MessageModel, {
     foreignKey: "user_id" 
 });
 
-MessageModel.belongsTo(OnlineClass, {
+OnlineClassModel.hasMany(UserModel, { 
+    onUpdate: 'CASCADE',
+    foreignKey: "active_class_id" 
+});
+
+MessageModel.belongsTo(OnlineClassModel, {
   onUpdate: 'CASCADE',
   foreignKey: "class_id" 
 });
@@ -24,5 +29,6 @@ MessageModel.belongsTo(UserModel, {
 
 const Message = MessageModel;
 const User = UserModel;
+const OnlineClass = OnlineClassModel;
 
-export { User, Message };
+export { User, Message, OnlineClass };

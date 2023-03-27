@@ -1,4 +1,4 @@
-import OnlineClass from "../models/OnlineClass.js";
+import {OnlineClass} from "../models/index.js";
 
 export const getOnlineClasses = async (req, res) => {
   try {

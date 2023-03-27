@@ -1,5 +1,5 @@
-import OnlineClass from "../models/OnlineClass.js";
-import {User} from "../models/index.js";
+import {OnlineClass} from "../models/index.js";
+import { User } from "../models/index.js";
 import bcrypt from "bcryptjs";
 
 export const getUsers = async (req, res) => {
@@ -17,7 +17,7 @@ export const createUser = async (req, res) => {
   try {
     const usernameFind = await User.findOne({
       where: {
-        username
+        username,
       },
     });
     if (usernameFind)
@@ -42,7 +42,22 @@ export const createUser = async (req, res) => {
       active_class_id: activeOnlineClass.id,
     });
 
-    res.json({ success: true, data: { id: newUser.id, name: newUser.name, username:newUser.username, type_user:newUser.type_user, active_class_id:newUser.active_class_id } });
+    await newUser.reload({
+      include: OnlineClass,
+    });
+
+
+    res.json({
+      success: true,
+      data: {
+        id: newUser.id,
+        name: newUser.name,
+        username: newUser.username,
+        type_user: newUser.type_user,
+        active_class_id: newUser.active_class_id,
+        class: newUser.class
+      },
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ success: false, message: error.message });
@@ -57,6 +72,7 @@ export const login = async (req, res) => {
       where: {
         username,
       },
+      include: [OnlineClass],
     });
 
     if (!userFind)
@@ -72,7 +88,14 @@ export const login = async (req, res) => {
         // Las contraseñas coinciden, el usuario se autentica correctamente
         res.json({
           success: true,
-          data: { id: userFind.id, name: userFind.name, username:userFind.username, type_user:userFind.type_user, active_class_id:userFind.active_class_id }
+          data: {
+            id: userFind.id,
+            name: userFind.name,
+            username: userFind.username,
+            type_user: userFind.type_user,
+            active_class_id: userFind.active_class_id,
+            class: userFind.class
+          },
         });
       }
     });
