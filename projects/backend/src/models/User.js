@@ -1,8 +1,8 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Sequelize } from "sequelize";
 import { sequelize } from "../database/database.js";
 
-
-const User = sequelize.define("users", {
+export default class UserModel extends Sequelize.Model {}
+UserModel.init({
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -22,10 +22,11 @@ const User = sequelize.define("users", {
     type: DataTypes.ENUM,
     values: ["STUDENT", "MODERATOR"],
   },
-  active_class_id: {
-    type: DataTypes.INTEGER,
-  }
-});
+  // active_class_id: {
+  //   type: DataTypes.INTEGER,
+  // }
+},
+  {sequelize, modelName: "users",} 
+);
 
 
-export default User;

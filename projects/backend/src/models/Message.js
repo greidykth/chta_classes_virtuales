@@ -1,7 +1,8 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Sequelize } from "sequelize";
 import { sequelize } from "../database/database.js";
 
-const Message = sequelize.define("messages", {
+export default class MessageModel extends Sequelize.Model {}
+MessageModel.init({
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -10,13 +11,12 @@ const Message = sequelize.define("messages", {
   content: {
     type: DataTypes.STRING,
   },
-  class_id: {
-    type: DataTypes.INTEGER,
-  },
-  user_id: {
-    type: DataTypes.INTEGER,
-  },
-});
+  // class_id: {
+  //   type: DataTypes.INTEGER,
+  // },
+  // user_id: {
+  //   type: DataTypes.INTEGER,
+  // },
+}, { sequelize, modelName: 'messages' });
 
 
-export default Message;

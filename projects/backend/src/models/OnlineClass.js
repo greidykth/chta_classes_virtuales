@@ -1,8 +1,8 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Sequelize } from "sequelize";
 import { sequelize } from "../database/database.js";
 
-
-const OnlineClass = sequelize.define("classes", {
+export default class OnlineClass extends Sequelize.Model {}
+OnlineClass.init({
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -21,9 +21,5 @@ const OnlineClass = sequelize.define("classes", {
   url: {
     type: DataTypes.STRING,
   },
-});
-
-
-
-
-export default OnlineClass;
+}, { sequelize, modelName: 'classes' }
+);

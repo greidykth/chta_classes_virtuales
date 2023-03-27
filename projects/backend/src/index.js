@@ -35,7 +35,7 @@ const port = process.env.REACT_APP_SERVER_PORT ? process.env.REACT_APP_SERVER_PO
 
 async function main() {
     try {
-        await sequelize.sync({force: false});
+        await sequelize.sync({force: true});
         server.listen(port, () => {
             console.log(`Server listening on port ${port}`);
         })

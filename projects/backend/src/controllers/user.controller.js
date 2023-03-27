@@ -1,5 +1,5 @@
 import OnlineClass from "../models/OnlineClass.js";
-import User from "../models/User.js";
+import {User} from "../models/index.js";
 import bcrypt from "bcryptjs";
 
 export const getUsers = async (req, res) => {
@@ -13,8 +13,6 @@ export const getUsers = async (req, res) => {
 
 export const createUser = async (req, res) => {
   const { name, username, password, type_user } = req.body;
-
-  console.log(req.body);
 
   try {
     const usernameFind = await User.findOne({

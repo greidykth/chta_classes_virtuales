@@ -1,6 +1,7 @@
-import { Op } from "sequelize";
-import Message from "../models/Message.js";
-import User from "../models/User.js";
+import { Message, User } from "../models/index.js";
+
+
+
 
 export const getMessages = async (req, res) => {
   try {
@@ -41,3 +42,4 @@ export const createMessage = async (req, res) => {
     return res.status(500).json({success:false, message: error.message });
   }
 };
+
