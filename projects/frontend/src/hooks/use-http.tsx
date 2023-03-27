@@ -24,11 +24,11 @@ const useHttp = () => {
                 body: requestConfig.body ? JSON.stringify(requestConfig.body) : null,
             });
             const data = await response.json();
-            console.log(data);
             
             if (!data.success) {
                 throw data;
             } else {
+                console.log(data.data);
                 applyData(data.data);
             }
 

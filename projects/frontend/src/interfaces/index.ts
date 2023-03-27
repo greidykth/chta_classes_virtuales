@@ -2,6 +2,7 @@ export interface Message {
     content: string;
     user_id: number;
     class_id: number;
+    user?: User;
 }
 
 export interface User {

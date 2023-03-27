@@ -1,7 +1,9 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { style, media } from "typestyle";
-import { Message } from "../interfaces";
+import useHttp from "../hooks/use-http";
+import { Message, User } from "../interfaces";
+import { set_messages } from "../store/actions";
 import MessageChat from "./MessageChat";
 
 const chatContainer = style(
@@ -16,12 +18,46 @@ const chatContainer = style(
   )
 );
 
+interface PropsChat {
+  user: User
+}
 
-export default function Chat() {
+export default function Chat({user}: PropsChat) {
 
-  const chat = useSelector((state: any) => state);
-  console.log(chat);
+  const dispatch = useDispatch();
+  const { active_class_id } = user;
+  
+  const {
+    isSaving,
+    isLoading,
+    error,
+    sendRequest: sendRequestGetMessages,
+  } = useHttp();
 
+  useEffect(() => {
+    console.log("USEEFFECT");
+    
+    sendRequestGetMessages(
+      {
+        url: "http://localhost:8000/messages/index",
+        method: "POST",
+        headers: {
+          "Content-type": "application/json;charset=UTF-8",
+        },
+        body: {class_id: active_class_id},
+      },
+      loadMessages
+    );
+  }, [active_class_id]);
+
+const loadMessages = (data: any) => {
+  dispatch(set_messages(data));
+}
+
+const messages = useSelector((state: any) => state.chat.messages);
+const userLogueado = useSelector((state: any) => state.chat.user);
+
+  
   return (
     <div className="col-lg-4 col-md-5 bg-light">
       <div className="d-flex flex-column h-100">
@@ -30,15 +66,10 @@ export default function Chat() {
         </div>
         <div className="p-3 flex-grow-1 ">
           <div className={`mb-3 overflow-auto ${chatContainer}`}>
-            <div className="d-flex align-items-center bg-white mb-2 p-1">
-              <div className="d-flex flex-column justify-content-center align-items-start">
-                <strong>Usuario 1</strong>
-                <p className="m-0">Hola, ¿cómo estás?</p>
-              </div>
-            </div>
-            {/* {chat.messages.map((message: Message) => (
-              <MessageChat message={message} />
-            ))} */}
+            
+            {messages && messages.map((message: Message) => (
+              <MessageChat message={message} userLogueado={userLogueado} />
+            ))}
             
           </div>
           <form>

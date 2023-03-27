@@ -1,6 +1,5 @@
 import "./App.css";
 import { socket, SocketContext } from "./context/socket";
-import ListComponent from "./components/ListComponent";
 import Nav from "./components/Nav";
 import Login from "./views/Login";
 import Register from "./views/Register";

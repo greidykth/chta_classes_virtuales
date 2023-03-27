@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Message from "../components/UI/Message";
@@ -54,10 +54,12 @@ export default function Login() {
     );
   };
 
-  const userLogin = (resultado : any) => {
+  const userLogin = async (resultado : any) => {
+    console.log(resultado);
     dispatch(set_user(resultado));
     navigate("/home");
   };
+
 
   return (
     <>
@@ -102,7 +104,7 @@ export default function Login() {
                   />
                 </div>
 
-                <button className="w-100 btn btn-lg btn-primary" type="submit">
+                <button className="w-100 btn btn-lg btn-primary" type="submit" disabled={isSaving}>
                   Ingresar
                 </button>
                 <Link

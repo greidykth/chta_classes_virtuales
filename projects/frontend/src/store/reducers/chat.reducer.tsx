@@ -24,6 +24,11 @@ const reducerClient = (state : State = initialState, action: Action) => {
         ...state,
         user: action.payload.user
       };
+    case Actions.SET_MESSAGES:
+      return {
+        ...state,
+        messages: action.payload.messages
+      };
     case Actions.SET_MESSAGE:
       return {
         ...state,

@@ -138,7 +138,7 @@ export default function Register() {
                   </select>
                 </div>
 
-                <button className="w-100 btn btn-lg btn-primary" type="submit">
+                <button className="w-100 btn btn-lg btn-primary" type="submit" disabled={isSaving}>
                   Registrarse
                 </button>
                 <Link
