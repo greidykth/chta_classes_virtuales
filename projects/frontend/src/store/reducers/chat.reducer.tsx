@@ -30,10 +30,14 @@ const reducerClient = (state : State = initialState, action: Action) => {
         messages: action.payload.messages
       };
     case Actions.SET_MESSAGE:
-      return {
-        ...state,
-        messages: [...state.messages, action.payload.message] 
-      };
+      if(!state.messages.find( (message: Message) => message.id === action.payload.id)){
+        return {
+          ...state,
+          messages: [...state.messages, action.payload.message] 
+        };
+      }
+      return state;
+      
     default:
       return state;
   }

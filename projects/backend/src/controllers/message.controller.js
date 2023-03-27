@@ -24,6 +24,8 @@ export const getMessages = async (req, res) => {
 };
 
 export const createMessage = async (req, res) => {
+  
+
   const { content, class_id, user_id } = req.body;
 
   try {
@@ -39,7 +41,9 @@ export const createMessage = async (req, res) => {
     
     
       //EMITIR EL EVENTO NUEVO MENSAJE, CON EL NUEVO MENSAJE Y EL DUEÑO DEL MENSAJE
-      //BUSCAR COMO HACER WITH
+
+      req.app.get('socket').emit('created_message', newMessage);
+
       res.json({success: true, data: newMessage});
   } catch (error) {
     return res.status(500).json({success:false, message: error.message });

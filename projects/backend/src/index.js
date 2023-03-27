@@ -21,15 +21,17 @@ app.use(usersRoutes);
 app.use(messagesRoutes);
 app.use(onlineClassesRoutes);
 
+
 io.on('connection', socket => {
+    app.set('socket', socket);
     console.log('new connection', socket.id); 
-    let i = 1
-    setInterval(() => {
-        socket.emit('message', "mensaje " + i++);
-    }, 10000);
-    socket.on("response", (args) => {
-        console.log("respuesta",args);
-    })
+    // let i = 1
+    // setInterval(() => {
+    //     socket.emit('message', "mensaje " + i++);
+    // }, 10000);
+    // socket.on("response", (args) => {
+    //     console.log("respuesta",args);
+    // })
 });
 
 const port = process.env.REACT_APP_SERVER_PORT ? process.env.REACT_APP_SERVER_PORT : 8000;
@@ -37,12 +39,21 @@ const port = process.env.REACT_APP_SERVER_PORT ? process.env.REACT_APP_SERVER_PO
 async function main() {
     try {
         await sequelize.sync({force: false});
-        let class1 = await OnlineClass.create({
-            name: "Clase de prueba",
-            description: "Matematica",
-            active: "ACTIVE",
-            url: "https://www.youtube.com/watch?v=adW9o-3uwrE&t=3s&ab_channel=KuepaEdutech"
-        })
+        const testClass = await OnlineClass.findOne({
+            where: {
+                name: "Clase de prueba",
+            }
+        });
+
+        if(!testClass) {
+            let class1 = await OnlineClass.create({
+                name: "Clase de prueba",
+                description: "Matematica",
+                active: "ACTIVE",
+                url: "https://www.youtube.com/watch?v=adW9o-3uwrE&t=3s&ab_channel=KuepaEdutech"
+            })
+        }
+        
         server.listen(port, () => {
             console.log(`Server listening on port ${port}`);
         })

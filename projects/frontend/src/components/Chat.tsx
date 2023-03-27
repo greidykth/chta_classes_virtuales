@@ -35,8 +35,6 @@ export default function Chat({ user }: PropsChat) {
   } = useHttp();
 
   useEffect(() => {
-    console.log("USEEFFECT");
-
     sendRequestGetMessages(
       {
         url: "http://localhost:8000/messages/index",
