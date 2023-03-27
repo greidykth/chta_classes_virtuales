@@ -1,4 +1,5 @@
 export interface Message {
+    id?: number;
     content: string;
     user_id: number;
     class_id: number;

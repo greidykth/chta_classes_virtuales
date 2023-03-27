@@ -32,6 +32,11 @@ export const createMessage = async (req, res) => {
         class_id,
         user_id,
       });
+
+      await newMessage.reload({
+        include: User
+      });
+    
     
       //EMITIR EL EVENTO NUEVO MENSAJE, CON EL NUEVO MENSAJE Y EL DUEÑO DEL MENSAJE
       //BUSCAR COMO HACER WITH
