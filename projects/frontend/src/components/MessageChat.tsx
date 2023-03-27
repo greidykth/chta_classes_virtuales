@@ -13,7 +13,7 @@ export default function MessageChat({userLogueado, message} : PropsMessageChat) 
   const typeMessage = (() => {
     if(userLogueado.id === message.user_id){
       return "OWN";
-    } else if(userLogueado.type_user === "MODERATOR") {
+    } else if(message.user?.type_user === "MODERATOR") {
       return "MODERATOR";
     } else {
       return "OTHERS";
@@ -34,9 +34,3 @@ export default function MessageChat({userLogueado, message} : PropsMessageChat) 
   );
 }
 
-{/* <div className="d-flex align-items-center bg-white mb-2 p-1">
-      <div className="d-flex flex-column justify-content-center align-items-start">
-        <strong className="">{props.message.user ? props.message.user.name : "Usuario id: " + props.message.user_id}</strong>
-        <p className="m-0">{props.message.content}</p>
-      </div>
-    </div> */}

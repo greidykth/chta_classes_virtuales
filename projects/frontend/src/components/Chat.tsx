@@ -65,7 +65,7 @@ const userLogueado = useSelector((state: any) => state.chat.user);
           <h5>Chat</h5>
         </div>
         <div className="p-3 flex-grow-1 ">
-          <div className={`mb-3 overflow-auto ${chatContainer}`}>
+          <div className={`mb-3 overflow-x-hidden overflow-y-auto ${chatContainer}`}>
             
             {messages && messages.map((message: Message) => (
               <MessageChat message={message} userLogueado={userLogueado} />
