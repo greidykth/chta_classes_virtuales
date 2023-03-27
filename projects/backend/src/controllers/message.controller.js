@@ -1,8 +1,6 @@
 import { Message, User } from "../models/index.js";
 
 
-
-
 export const getMessages = async (req, res) => {
   try {
     let messages = {};
@@ -18,7 +16,7 @@ export const getMessages = async (req, res) => {
     } else {
        messages = await Message.findAll();
     }
-
+    
     res.json({success: true, data: messages});
   } catch (error) {
     return res.status(500).json({success:false, message: error.message });
