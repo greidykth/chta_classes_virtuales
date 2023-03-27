@@ -6,6 +6,7 @@ import messagesRoutes from './routes/messages.routes.js';
 import onlineClassesRoutes from './routes/onlineClasses.routes.js';
 import { sequelize } from './database/database.js';
 import cors from 'cors';
+import OnlineClass from './models/OnlineClass.js';
 
 const app = express();
 const server = http.createServer(app);
@@ -36,6 +37,12 @@ const port = process.env.REACT_APP_SERVER_PORT ? process.env.REACT_APP_SERVER_PO
 async function main() {
     try {
         await sequelize.sync({force: false});
+        let class1 = await OnlineClass.create({
+            name: "Clase de prueba",
+            description: "Matematica",
+            active: "ACTIVE",
+            url: "https://www.youtube.com/watch?v=adW9o-3uwrE&t=3s&ab_channel=KuepaEdutech"
+        })
         server.listen(port, () => {
             console.log(`Server listening on port ${port}`);
         })
