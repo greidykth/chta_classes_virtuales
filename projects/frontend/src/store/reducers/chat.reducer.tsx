@@ -13,6 +13,7 @@ const initialState = {
     username: "",
     type_user: "",
     active_class_id: 0,
+    login: false
   },
   messages: []
 };
@@ -30,13 +31,23 @@ const reducerClient = (state : State = initialState, action: Action) => {
         messages: action.payload.messages
       };
     case Actions.SET_MESSAGE:
-      if(!state.messages.find( (message: Message) => message.id === action.payload.id)){
+      if(!state.messages.some( (message: Message) => message.id === action.payload.message.id)){
         return {
           ...state,
           messages: [...state.messages, action.payload.message] 
         };
       }
       return state;
+
+    case Actions.LOGIN:
+      return {
+        ...state, user: {...state.user, login: true}
+      }
+
+    case Actions.LOGOUT:
+      return {
+        ...state, user: {...state.user, login: false}
+      }
       
     default:
       return state;

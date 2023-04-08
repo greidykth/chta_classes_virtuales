@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Message from "../components/UI/Message";
 import Spinner from "../components/UI/Spinner";
 import useHttp from "../hooks/use-http";
-import { set_user } from "../store/actions";
+import { login, set_user } from "../store/actions";
 
 
 export default function Login() {
@@ -12,8 +12,8 @@ export default function Login() {
   const dispatch = useDispatch();
 
   const [dataUser, setDataUser] = useState({
-    username: "",
-    password: "",
+    username: "greidykth",
+    password: "1234",
   });
 
   const [message, setMessage] = useState("");
@@ -43,7 +43,7 @@ export default function Login() {
 
     sendRequestLogin(
       {
-        url: "http://localhost:8000/users/login",
+        url: "http://localhost:3000/users/login",
         method: "POST",
         headers: {
           "Content-type": "application/json;charset=UTF-8",
@@ -57,6 +57,7 @@ export default function Login() {
   const userLogin = async (resultado : any) => {
     console.log(resultado);
     dispatch(set_user(resultado));
+    dispatch(login());
     navigate("/home");
   };
 

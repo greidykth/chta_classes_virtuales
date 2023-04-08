@@ -20,3 +20,13 @@ export const set_message = (message: Message) => ({
   type: SET_MESSAGE,
   payload: { message },
 });
+
+export const LOGIN = "[USER] LOGIN";
+export const login = () => ({
+  type: LOGIN,
+});
+
+export const LOGOUT = "[USER] LOGOUT";
+export const logout = () => ({
+  type: LOGOUT,
+});

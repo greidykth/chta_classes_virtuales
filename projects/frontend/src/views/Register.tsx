@@ -53,7 +53,7 @@ export default function Register() {
 
     sendRequestRegister(
       {
-        url: "http://localhost:8000/users",
+        url: "http://localhost:3000/users",
         method: "POST",
         headers: {
           "Content-type": "application/json;charset=UTF-8",
