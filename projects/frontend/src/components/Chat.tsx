@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { style, media } from "typestyle";
 import useHttp from "../hooks/use-http";
@@ -26,6 +26,8 @@ interface PropsChat {
 export default function Chat({ user }: PropsChat) {
   const dispatch = useDispatch();
   const { active_class_id } = user;
+  const messages = useSelector((state: any) => state.chat.messages);
+  const userLogueado = useSelector((state: any) => state.chat.user);
 
   const {
     isSaving,
@@ -37,7 +39,7 @@ export default function Chat({ user }: PropsChat) {
   useEffect(() => {
     sendRequestGetMessages(
       {
-        url: "http://localhost:8000/messages/index",
+        url: "http://localhost:3000/messages/index",
         method: "POST",
         headers: {
           "Content-type": "application/json;charset=UTF-8",
@@ -52,8 +54,14 @@ export default function Chat({ user }: PropsChat) {
     dispatch(set_messages(data));
   };
 
-  const messages = useSelector((state: any) => state.chat.messages);
-  const userLogueado = useSelector((state: any) => state.chat.user);
+  const chatRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    chatRef.current?.scrollTo({
+      top: chatRef.current.scrollHeight,
+      behavior: 'smooth',
+    });
+  }, [messages]);
 
   return (
     <div className="col-lg-4 col-md-5 bg-light">
@@ -64,6 +72,7 @@ export default function Chat({ user }: PropsChat) {
         <div className="p-3 flex-grow-1 ">
           <div
             className={`mb-3 overflow-x-hidden overflow-y-auto ${chatContainer}`}
+            ref={chatRef}
           >
             {messages &&
               messages.map((message: Message) => (

@@ -12,18 +12,17 @@ export default function Home() {
   const messages = useSelector((state: any) => state.chat.messages);
 
   const socket = useContext(SocketContext); 
-
   const dispatch = useDispatch()
 
     useEffect(() => {
         // here we can use socket events and listeners
         socket.on('created_message', (args: any) => {
-          console.log('escuchado', {args});
 
-          if(!messages.find( (message: Message) => message.id === args.id)){
+          if(!messages.some( (message: Message) => message.id === args.id)){
             dispatch(set_message(args));
           }
         });
+        return () => socket.off();
     }, [])
 
   // const {id, name, username, type_user} = user;

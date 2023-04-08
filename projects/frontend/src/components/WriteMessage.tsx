@@ -30,7 +30,7 @@ export default function WriteMessage({ userLogueado }: PropsMessageChat) {
     if (content != "") {
       sendRequestStoreMessage(
         {
-          url: "http://localhost:8000/messages",
+          url: "http://localhost:3000/messages",
           method: "POST",
           headers: {
             "Content-type": "application/json;charset=UTF-8",
@@ -49,7 +49,7 @@ export default function WriteMessage({ userLogueado }: PropsMessageChat) {
   const onStoreMessage = (resultado: any) => {
     setContent("");
     dispatch(set_message(resultado));
-    console.log(resultado);
+    console.log("se hizo dispatch desde write message");
   };
 
   return (
@@ -66,6 +66,7 @@ export default function WriteMessage({ userLogueado }: PropsMessageChat) {
             name="content"
             value={content}
             rows={2}
+            autoFocus
           ></textarea>
         </div>
         <div className="col-md-12 col-4 d-flex flex-column justify-content-center align-items-center">
