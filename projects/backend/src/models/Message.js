@@ -18,5 +18,3 @@ MessageModel.init({
   //   type: DataTypes.INTEGER,
   // },
 }, { sequelize, modelName: 'messages' });
-
-

@@ -10,7 +10,10 @@ export const getMessages = async (req, res) => {
         where: {
           class_id: req.body.class_id
         },
-        include:[User]
+        include:[User],
+        order: [
+          ['id', 'ASC']
+        ]
       });
       
     } else {
@@ -39,10 +42,9 @@ export const createMessage = async (req, res) => {
         include: User
       });
     
-    
       //EMITIR EL EVENTO NUEVO MENSAJE, CON EL NUEVO MENSAJE Y EL DUEÑO DEL MENSAJE
-
-      req.app.get('socket').emit('created_message', newMessage);
+      global.io.emit('created_message', newMessage);
+      // global.io.emit('news', { hello: 'world' });
 
       res.json({success: true, data: newMessage});
   } catch (error) {

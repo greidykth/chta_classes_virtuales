@@ -11,6 +11,7 @@ import {OnlineClass} from './models/index.js';
 const app = express();
 const server = http.createServer(app);
 const io = new WebSocketServer(server);
+global.io = io;
 
 app.use(cors()); // habilita CORS para todas las solicitudes
 
@@ -23,7 +24,6 @@ app.use(onlineClassesRoutes);
 
 
 io.on('connection', socket => {
-    app.set('socket', socket);
     console.log('new connection', socket.id); 
     // let i = 1
     // setInterval(() => {
@@ -34,7 +34,7 @@ io.on('connection', socket => {
     // })
 });
 
-const port = process.env.REACT_APP_SERVER_PORT ? process.env.REACT_APP_SERVER_PORT : 8000;
+const port = process.env.REACT_APP_SERVER_PORT ? process.env.REACT_APP_SERVER_PORT : 3000;
 
 async function main() {
     try {
